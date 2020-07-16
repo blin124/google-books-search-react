@@ -1,33 +1,15 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import "./style.css";
 
 function Nav() {
-
-  const history = useHistory()
-  
-
-  function handleClick(url){
-    history.push(url);
-  }
-
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand">
+    <nav id="nav" className="navbar ">
+      <a className="navbar-brand" href="/">
         Google Books
       </a>
-      <div>
-        <p onClick={(e) => handleClick('/')} className="navbar-brand" href="">
-          Search
-        </p>
-        <p onClick={(e) => handleClick('/saved')} className="navbar-brand" href="">
-          Saved
-        </p>
-      
-        {/* <a className="navbar-brand" href="/saved">
-          Saved
-        </a> */}
-      </div>
+      <Link id="search" to="/" className={window.location.pathname === "/" || window.location.pathname === "/" ? "nav-link active" : "nav-link" } > Search </Link>
+      <Link id="saved" to="/saved" className={window.location.pathname === "/saved" || window.location.pathname === "/saved" ? "nav-link active" : "nav-link" } > Saved </Link>
     </nav>
   );
 }

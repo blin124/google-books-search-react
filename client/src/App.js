@@ -1,34 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Books from "./pages/Books";
+import Search from "./pages/Search";
+import Saved from "./pages/Saved";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
-import Saved from "./pages/Saved";
 
 function App() {
   return (
-    // dont use wrapper :]
-    // wrap container with a context -- createContext
-      <Router>
-        <div>
-          <Nav />
-          <Switch>
-            <Route exact path={["/", "/books"]}>
-              <Books />
-            </Route>
-            <Route exact path="/books/:id">
-              <Detail />
-            </Route>
-            <Route exact path="/saved">
-              <Saved />
-            </Route>
-            <Route>
-              <NoMatch />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+    <Router>
+      <div>
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Search} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/books/:id" component={Detail} />
+          <Route exact path="/saved" component={Saved} />
+          <Route component={NoMatch} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 
-function Detail(props) {
-  const [book, setBook] = useState({})
-
-  // When this component mounts, grab the book with the _id of props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-  const {id} = useParams()
-  useEffect(() => {
-    API.getBook(id)
-      .then(res => setBook(res.data))
+class Detail extends Component {
+  state = {
+    book: {}
+  };
+  // When this component mounts, grab the book with the _id of this.props.match.params.id
+  componentDidMount() {
+    API.getBook(this.props.match.params.id)
+      .then(res => this.setState({ book: res.data }))
       .catch(err => console.log(err));
-  }, [])
+  }
 
-  return (
+  render() {
+    return (
       <Container fluid>
         <Row>
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {book.title} by {book.author}
+                {this.state.book.title} by {this.state.book.author}
               </h1>
             </Jumbotron>
           </Col>
@@ -32,7 +32,7 @@ function Detail(props) {
             <article>
               <h1>Synopsis</h1>
               <p>
-                {book.synopsis}
+                {this.state.book.synopsis}
               </p>
             </article>
           </Col>
@@ -45,6 +45,6 @@ function Detail(props) {
       </Container>
     );
   }
-
+}
 
 export default Detail;
